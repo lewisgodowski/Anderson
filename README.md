@@ -7,7 +7,9 @@ Native Neo4j driver for Swift, written in Swift
 
 Anderson uses the [Swift Package Manager](https://swift.org/getting-started/#using-the-package-manager). Add Anderson to your dependencies in your **Package.swift** file:
 
-`.package(url: "https://github.com/lewisgodowski/Anderson.git", branch: "develop")`
+```swift
+.package(url: "https://github.com/lewisgodowski/Anderson.git", branch: "develop")
+```
 
 Also, don't forget to add the product `"Anderson"` as a dependency for your target.
 
@@ -16,20 +18,6 @@ Also, don't forget to add the product `"Anderson"` as a dependency for your targ
 ```
 
 # 🚲 Basic usage
-
-First, connect to a database:
-
-```swift
-import Anderson
-
-try await app.initializeNeo4j(
-  hostname: <hostname>,
-  port: <port>,
-  username: <username>,
-  password: <password>,
-  encrypted: <encrypted>
-)
-```
 
 Vapor users should register the database as a service:
 
@@ -74,4 +62,57 @@ extension Application {
     neo4j = Neo4jDatabase(client)
   }
 }
+```
+
+Make sure to instantiate the database driver before starting your application:
+
+```swift
+import Anderson
+
+try await app.initializeNeo4j(
+  hostname: <hostname>,
+  port: <port>,
+  username: <username>,
+  password: <password>,
+  encrypted: <encrypted>
+)
+```
+
+## CRUD (Create, Read, Update, Delete)
+
+### Read (get)
+
+To perform the following Cypher query in Neo4j:
+
+```cypher
+MATCH (u: User)
+RETURN u
+```
+
+Use the following Anderson code:
+
+```swift
+let users = try await app.neo4j.get(User.self)
+
+or
+
+let users = try await req.neo4j.get(User.self)
+```
+
+To perform the following Cypher query in Neo4j:
+
+```cypher
+MATCH (u: User)
+WHERE u.isAgent = true
+RETURN u
+```
+
+Use the following Anderson code:
+
+```swift
+let users = try await app.neo4j.get(User.self, properties: ["isAgent": true])
+
+or
+
+let users = try await req.neo4j.get(User.self, properties: ["isAgent": true])
 ```
