@@ -1,3 +1,7 @@
+/*
+Adapted from Ian Keen: https://gist.github.com/IanKeen/0decfe8eae7c2411600b299d99236d88
+ */
+
 import Foundation
 import Theo
 import PackStream
