@@ -11,15 +11,9 @@ let package = Package(
     .tvOS(.v13),
   ],
   products: [
-    .library(name: "vapor-neo4j-driver", targets: ["vapor-neo4j-driver"])
+    .library(name: "Anderson", targets: ["vapor-neo4j-driver"])
   ],
   dependencies: [
-    // ✏️
-    .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
-
-    // 📈
-    .package(url: "https://github.com/apple/swift-metrics.git", "1.0.0" ..< "3.0.0"),
-
     // 🕸️
     .package(
       url: "https://github.com/lewisgodowski/Neo4j-swift.git",
