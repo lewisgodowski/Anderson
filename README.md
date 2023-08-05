@@ -19,20 +19,6 @@ Also, don't forget to add the product `"Anderson"` as a dependency for your targ
 
 # 🚲 Basic usage
 
-First, connect to a database:
-
-```swift
-import Anderson
-
-try await app.initializeNeo4j(
-  hostname: <hostname>,
-  port: <port>,
-  username: <username>,
-  password: <password>,
-  encrypted: <encrypted>
-)
-```
-
 Vapor users should register the database as a service:
 
 ```swift
@@ -76,4 +62,57 @@ extension Application {
     neo4j = Neo4jDatabase(client)
   }
 }
+```
+
+Make sure to instantiate the database driver before starting your application:
+
+```swift
+import Anderson
+
+try await app.initializeNeo4j(
+  hostname: <hostname>,
+  port: <port>,
+  username: <username>,
+  password: <password>,
+  encrypted: <encrypted>
+)
+```
+
+## CRUD (Create, Read, Update, Delete)
+
+### Read (get)
+
+To perform the following Cypher query in Neo4j:
+
+```cypher
+MATCH (u: User)
+RETURN u
+```
+
+Use the following Anderson code:
+
+```swift
+let users = try await app.neo4j.get(User.self)
+
+or
+
+let users = try await req.neo4j.get(User.self)
+```
+
+To perform the following Cypher query in Neo4j:
+
+```cypher
+MATCH (u: User)
+WHERE u.isAgent = true
+RETURN u
+```
+
+Use the following Anderson code:
+
+```swift
+let users = try await app.neo4j.get(User.self, properties: ["isAgent": true])
+
+or
+
+let users = try await req.neo4j.get(User.self, properties: ["isAgent": true])
 ```
