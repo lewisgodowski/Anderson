@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-  name: "vapor-neo4j-driver",
+  name: "Anderson",
   platforms: [
     .macOS(.v10_15),
     .iOS(.v13),
     .tvOS(.v13),
   ],
   products: [
-    .library(name: "Anderson", targets: ["vapor-neo4j-driver"])
+    .library(name: "Anderson", targets: ["Anderson"])
   ],
   dependencies: [
     // 🕸️
@@ -24,13 +24,13 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "vapor-neo4j-driver",
+      name: "Anderson",
       dependencies: [.product(name: "Theo", package: "Neo4j-swift")]
     ),
     .testTarget(
-      name: "vapor-neo4j-driverTests",
+      name: "AndersonTests",
       dependencies: [
-        "vapor-neo4j-driver",
+        "Anderson",
         .product(name: "XCTVapor", package: "vapor")
       ]
     )
