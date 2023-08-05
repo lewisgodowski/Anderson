@@ -22,36 +22,56 @@ First, connect to a database:
 ```swift
 import Anderson
 
-let db = try await MongoDatabase.connect(to: "mongodb://localhost/my_database")
+try await app.initializeNeo4j(
+  hostname: <hostname>,
+  port: <port>,
+  username: <username>,
+  password: <password>,
+  encrypted: <encrypted>
+)
 ```
 
 Vapor users should register the database as a service:
 
 ```swift
+import Anderson
+
 extension Request {
-    public var mongo: MongoDatabase {
-        return application.mongo.adoptingLogMetadata([
-            "request-id": .string(id)
-        ])
-    }
+  public var neo4j: Neo4jDatabase {
+    application.neo4j
+  }
 }
 
-private struct MongoDBStorageKey: StorageKey {
-    typealias Value = MongoDatabase
+private struct Neo4jStorageKey: StorageKey {
+  typealias Value = Neo4jDatabase
 }
 
 extension Application {
-    public var mongo: MongoDatabase {
-        get {
-            storage[MongoDBStorageKey.self]!
-        }
-        set {
-            storage[MongoDBStorageKey.self] = newValue
-        }
+  public var neo4j: Neo4jDatabase {
+    get {
+      storage[Neo4jStorageKey.self]!
     }
-    
-    public func initializeMongoDB(connectionString: String) throws {
-        self.mongo = try MongoDatabase.lazyConnect(to: connectionString)
+    set {
+      storage[Neo4jStorageKey.self] = newValue
     }
+  }
+
+  public func initializeNeo4j(
+    hostname: String,
+    port: Int,
+    username: String,
+    password: String,
+    encrypted: Bool
+  ) async throws {
+    let client = try Neo4jClient(
+      hostname: hostname,
+      port: port,
+      username: username,
+      password: password,
+      encrypted: encrypted
+    )
+    try await client.connect()
+    neo4j = Neo4jDatabase(client)
+  }
 }
 ```
