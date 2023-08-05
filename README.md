@@ -7,7 +7,9 @@ Native Neo4j driver for Swift, written in Swift
 
 Anderson uses the [Swift Package Manager](https://swift.org/getting-started/#using-the-package-manager). Add Anderson to your dependencies in your **Package.swift** file:
 
-`.package(url: "https://github.com/lewisgodowski/Anderson.git", branch: "develop")`
+```swift
+.package(url: "https://github.com/lewisgodowski/Anderson.git", branch: "develop")
+```
 
 Also, don't forget to add the product `"Anderson"` as a dependency for your target.
 
