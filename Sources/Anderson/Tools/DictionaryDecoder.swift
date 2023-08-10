@@ -1,5 +1,5 @@
 /*
-Adapted from Ian Keen: https://gist.github.com/IanKeen/0decfe8eae7c2411600b299d99236d88
+Adapted from Ian Keen's gist: https://gist.github.com/IanKeen/0decfe8eae7c2411600b299d99236d88
  */
 
 import Foundation

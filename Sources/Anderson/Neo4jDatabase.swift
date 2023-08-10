@@ -15,6 +15,18 @@ public class Neo4jDatabase {
 }
 
 
+// MARK: - Execute
+
+extension Neo4jDatabase {
+  public func execute(
+    cypher query: String,
+    parameters: [String: PackProtocol]
+  ) async throws -> QueryResult {
+    try await raw.executeCypher(query, params: parameters)
+  }
+}
+
+
 // MARK: - CRUD
 
 extension Neo4jDatabase {
