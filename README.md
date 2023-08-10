@@ -71,11 +71,11 @@ Make sure to instantiate the database driver before starting your application:
 import Anderson
 
 try await app.initializeNeo4j(
-  hostname: <hostname>,
-  port: <port>,
-  username: <username>,
-  password: <password>,
-  encrypted: <encrypted>
+  hostname: Environment.get("DATABASE_HOSTNAME")!,
+  port: Environment.get("DATABASE_PORT")!,
+  username: Environment.get("DATABASE_USERNAME")!,
+  password: Environment.get("DATABASE_PASSWORD")!,
+  encrypted: Environment.get("DATABASE_ENCRYPTED")!
 )
 ```
 
