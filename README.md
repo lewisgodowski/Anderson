@@ -1,4 +1,5 @@
-# Anderson is a Work in Progress
+# 🚨 Work in Progress
+# Anderson
 Native Neo4j driver for Swift, written in Swift
 
 # 🕶 Installation
